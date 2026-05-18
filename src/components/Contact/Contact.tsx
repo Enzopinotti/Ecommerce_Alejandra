@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { MessageCircle, AtSign, Phone, Mail, Send, Heart } from 'lucide-react';
+import { MessageCircle, AtSign, Phone, Mail, Heart } from 'lucide-react';
 import { brandConfig } from '@/data/brandConfig';
 import { whatsappGenericUrl } from '@/utils/whatsapp';
 import styles from './Contact.module.scss';

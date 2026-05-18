@@ -16,7 +16,6 @@ export default function PackCard({ pack }: PackCardProps) {
     items_incluidos,
     porciones,
     pisos,
-    tipo_torta,
     precio_buttercream_pen,
     precio_chantilly_pen,
     destacado,
@@ -53,7 +52,7 @@ export default function PackCard({ pack }: PackCardProps) {
         {descripcion && <p className={styles.packCard__description}>{descripcion}</p>}
 
         {/* Especificaciones */}
-        {(porciones || pisos || tipo_torta) && (
+        {(porciones || pisos) && (
           <div className={styles.packCard__specs}>
             {porciones && <span className={styles.packCard__spec}>{porciones}</span>}
             {pisos && (
@@ -61,7 +60,6 @@ export default function PackCard({ pack }: PackCardProps) {
                 {pisos} {pisos === 1 ? 'piso' : 'pisos'}
               </span>
             )}
-            {tipo_torta && <span className={styles.packCard__spec}>{tipo_torta}</span>}
           </div>
         )}
 

@@ -9,7 +9,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const { nombre, descripcion, etiqueta, imagen_url } = product;
+  const { nombre, descripcion, destacado, imagen_url } = product;
 
   // Placeholder premium si no hay imagen
   const imageUrl =
@@ -28,7 +28,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           className={styles.productCard__image}
           loading="lazy"
         />
-        {etiqueta && <span className={styles.productCard__badge}>{etiqueta}</span>}
+        {destacado && <span className={styles.productCard__badge}>Destacado</span>}
       </div>
 
       {/* Info */}

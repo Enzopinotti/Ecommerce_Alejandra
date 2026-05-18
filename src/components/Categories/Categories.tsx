@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Layers, Heart, Sparkles, AlertCircle } from 'lucide-react';
+import { Heart, Sparkles, AlertCircle } from 'lucide-react';
 import { useLandingData } from '@/hooks/useLandingData';
 import { cn } from '@/lib/utils';
 import ProductCard from '@/components/ui/ProductCard';
@@ -412,7 +412,7 @@ export default function Categories() {
           }}
         >
           <AnimatePresence mode="popLayout">
-            {paginatedItems.map((item) => {
+            {paginatedItems.map((item: any) => {
               if (item.isPack) {
                 return (
                   <motion.div
