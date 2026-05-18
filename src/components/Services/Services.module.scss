@@ -1,0 +1,254 @@
+@use 'sass:color';
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.services {
+  position: relative;
+  padding-top: clamp(0rem, 5vw, 0rem);
+  padding-bottom: clamp(2rem, 8vw, 0rem);
+  background: transparent !important; 
+  overflow: hidden;
+
+  &__inner {
+    @include m.container;
+  }
+
+  // ── Header Estilo Hero (Idéntico a Historia/Nosotros) ──
+  &__header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: v.$space-xs;
+    margin-bottom: v.$space-xs;
+
+    &-subtitle {
+      display: inline-flex;
+      align-items: center;
+      gap: v.$space-xs;
+      font-family: v.$font-body;
+      font-size: 10px;
+      font-weight: v.$fw-semibold;
+      color: v.$rose-coral;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: v.$space-xs;
+
+      svg {
+        filter: drop-shadow(0 0 4px color.change(v.$rose-coral, $alpha: 0.3));
+      }
+    }
+
+    &-title {
+      font-family: v.$font-heading;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: v.$fw-bold;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      text-align: center;
+      background: linear-gradient(
+        135deg,
+        v.$navy-deep 0%,
+        v.$navy 50%,
+        v.$navy-deep 100%
+      ) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      color: transparent !important;
+      transition: all 0.4s ease;
+    }
+
+    &-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: v.$space-md;
+      width: 100%;
+      margin-top: v.$space-sm;
+      margin-bottom: v.$space-md;
+    }
+
+    &-line {
+      width: 45px;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        color.change(v.$gold, $alpha: 0.4),
+        transparent
+      );
+      
+      &:first-child {
+        background: linear-gradient(to left, color.change(v.$gold, $alpha: 0.4), transparent);
+      }
+      &:last-child {
+        background: linear-gradient(to right, color.change(v.$gold, $alpha: 0.4), transparent);
+      }
+    }
+
+    &-heart {
+      color: v.$gold;
+      opacity: 0.8;
+    }
+  }
+
+  // ── Bloque de Cuerpo Editorial ──
+  &__text-block {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-md;
+    width: 100%;
+    margin-top: v.$space-md;
+    margin-bottom: v.$space-2xl;
+    align-items: center;
+    text-align: center;
+  }
+
+  &__text-title {
+    font-family: v.$font-heading;
+    font-size: clamp(16px, 2.5vw, 20px);
+    font-weight: v.$fw-regular;
+    color: v.$gold-dark;
+    line-height: 1.45;
+    margin-bottom: v.$space-xs;
+    letter-spacing: 0.02em;
+    max-width: 700px;
+  }
+
+  &__text-highlight {
+    font-weight: v.$fw-semibold;
+    color: v.$navy;
+    font-style: normal;
+    border-bottom: 1px solid color.change(v.$gold, $alpha: 0.35);
+    padding-bottom: 2px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: v.$space-xl;
+    position: relative;
+    z-index: 10;
+
+    @include m.respond-to(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include m.respond-to(lg) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  // 💎 Tarjetas de Cristal Glaseado Extra Premium (Glassmorphism de Lujo)
+  &__card {
+    background: rgba(255, 255, 255, 0.35) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-radius: v.$radius-2xl !important;
+    padding: v.$space-2xl !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.03) !important;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) !important;
+    position: relative;
+    overflow: hidden;
+
+    // Borde superior dorado satinado fino al hacer hover
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, v.$gold, v.$gold-light, v.$gold);
+      opacity: 0;
+      transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    &:hover {
+      transform: translateY(-8px) !important;
+      border-color: rgba(197, 165, 90, 0.35) !important;
+      box-shadow: 0 20px 45px rgba(197, 165, 90, 0.08) !important;
+      background: rgba(255, 255, 255, 0.55) !important;
+
+      &::before {
+        opacity: 1;
+      }
+
+      .services__card-icon {
+        background: linear-gradient(135deg, v.$gold, v.$gold-light) !important;
+        border-color: v.$gold !important;
+        transform: rotate(6deg) scale(1.05);
+        
+        svg {
+          color: v.$white !important;
+        }
+      }
+    }
+  }
+
+  // 💎 Contenedores de Iconos de Cristal Fino
+  &__card-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: v.$radius-xl;
+    background: rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid rgba(197, 165, 90, 0.2) !important;
+    box-shadow: 0 4px 15px rgba(197, 165, 90, 0.04) !important;
+    @include m.flex-center;
+    margin-bottom: v.$space-lg;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+
+    svg {
+      width: 26px;
+      height: 26px;
+      color: v.$gold !important;
+      transition: color 0.5s ease;
+    }
+  }
+
+  &__card-title {
+    font-family: v.$font-heading;
+    font-size: 1.25rem;
+    color: #1b2a4a !important; // Azul Marino Royal
+    margin-bottom: v.$space-sm;
+    font-weight: v.$fw-semibold;
+    letter-spacing: -0.01em;
+  }
+
+  &__card-description {
+    font-family: v.$font-body;
+    font-size: v.$fs-sm;
+    color: v.$color-text-muted !important;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  // ── Botón CTA para explorar el Menú ──
+  &__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 32px;
+    background: linear-gradient(135deg, v.$gold, v.$gold-light);
+    color: v.$white;
+    font-family: v.$font-body;
+    font-size: 11px;
+    font-weight: v.$fw-semibold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: v.$radius-full;
+    cursor: pointer;
+    transition: all v.$transition-base;
+    box-shadow: 0 4px 14px color.change(v.$gold, $alpha: 0.35);
+    text-decoration: none;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px color.change(v.$gold, $alpha: 0.5);
+      background: linear-gradient(135deg, v.$gold-light, v.$gold);
+    }
+  }
+}

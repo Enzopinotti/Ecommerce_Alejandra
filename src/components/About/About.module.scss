@@ -1,0 +1,293 @@
+@use 'sass:color';
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.about {
+  position: relative;
+  padding-top: clamp(6rem, 5vw, 8rem);
+  padding-bottom: clamp(6rem, 8vw, 10rem);
+  overflow: visible; // Permitimos que los iconos del Hero floten libres hacia abajo
+  z-index: 1;
+  background: transparent !important; // Totalmente transparente para heredar el fondo continuo del wrapper
+
+  &__inner {
+    @include m.container(v.$container-narrow);
+    position: relative;
+    z-index: 10; // Elevamos el contenido para que los iconos del Hero floten POR DETRÁS
+  }
+
+  // ── Vitrina de Imagen Editorial Superior (No la típica lado a lado) ──
+  &__showcase {
+    position: relative;
+    z-index: 10;
+    margin-bottom: v.$space-2xl;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    @include m.respond-to(md) {
+      margin-bottom: v.$space-3xl;
+    }
+  }
+
+  &__image-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 580px; // Reducido para encuadrar perfecto como un post de alta gama cuadrado
+    margin: 0 auto; // Perfectamente centrado
+    border-radius: v.$radius-2xl;
+    overflow: hidden;
+    aspect-ratio: 1 / 1; // Formato cuadrado 1:1 perfecto (Instagram/Catálogo)
+    box-shadow: 
+      0 20px 50px rgba(116, 74, 94, 0.06),
+      0 4px 15px rgba(207, 168, 139, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid color.change(v.$gold, $alpha: 0.25);
+      border-radius: v.$radius-2xl;
+      pointer-events: none;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; // Muestra la imagen completa sin ningún recorte, zoom o distorsión
+    background: #faf6f3; // Color de lino cálido de fondo
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+
+    &:hover {
+      transform: scale(1.01); // Efecto de foco sutil sin recortar
+    }
+  }
+
+  &__image-glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 60%,
+      rgba(27, 42, 74, 0.03) 100%
+    );
+    pointer-events: none;
+  }
+
+  // ── Contenido de Texto Editorial Centrado Inferior ──
+  &__content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  &__text {
+    width: 100%;
+    max-width: 740px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: v.$space-xl;
+  }
+
+  // ── Header Estilo Hero ──
+  &__header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: v.$space-xs;
+    margin-bottom: v.$space-xs;
+
+    &-subtitle {
+      display: inline-flex;
+      align-items: center;
+      gap: v.$space-xs;
+      font-family: v.$font-body;
+      font-size: 10px;
+      font-weight: v.$fw-semibold;
+      color: v.$rose-coral;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: v.$space-xs;
+
+      svg {
+        filter: drop-shadow(0 0 4px color.change(v.$rose-coral, $alpha: 0.3));
+      }
+    }
+
+    &-title {
+      font-family: v.$font-heading;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: v.$fw-bold;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      background: linear-gradient(
+        135deg,
+        v.$navy-deep 0%,
+        v.$navy 50%,
+        v.$navy-deep 100%
+      ) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      color: transparent !important;
+      transition: all 0.4s ease;
+    }
+
+    &-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: v.$space-md;
+      width: 100%;
+      margin-top: v.$space-sm;
+    }
+
+    &-line {
+      width: 45px;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        color.change(v.$gold, $alpha: 0.4),
+        transparent
+      );
+      
+      &:first-child {
+        background: linear-gradient(to left, color.change(v.$gold, $alpha: 0.4), transparent);
+      }
+      &:last-child {
+        background: linear-gradient(to right, color.change(v.$gold, $alpha: 0.4), transparent);
+      }
+    }
+
+    &-heart {
+      color: v.$gold;
+      opacity: 0.8;
+    }
+  }
+
+  // ── Bloque de Cuerpo Editorial ──
+  &__text-block {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-md;
+    width: 100%;
+  }
+
+  &__text-title {
+    font-family: v.$font-heading;
+    font-size: clamp(16px, 2.5vw, 20px);
+    font-weight: v.$fw-regular;
+    color: v.$gold-dark;
+    line-height: 1.45;
+    margin-bottom: v.$space-xs;
+    letter-spacing: 0.02em;
+  }
+
+  &__text-highlight {
+    font-weight: v.$fw-semibold;
+    color: v.$navy;
+    font-style: normal;
+    border-bottom: 1px solid color.change(v.$gold, $alpha: 0.35);
+    padding-bottom: 2px;
+  }
+
+  &__text-body {
+    font-family: v.$font-body;
+    font-size: clamp(13px, 1.8vw, 15px);
+    color: v.$color-text-muted;
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+  }
+
+  // ── Pilares Centrados de Alta Gama ──
+  &__pillars {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: v.$space-md;
+    margin-top: v.$space-lg;
+    width: 100%;
+  }
+
+  &__pillar {
+    display: flex;
+    align-items: center;
+    gap: v.$space-sm;
+    padding: 10px v.$space-xl;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid color.change(v.$gold, $alpha: 0.28);
+    border-radius: v.$radius-full;
+    box-shadow: 0 4px 15px rgba(27, 42, 74, 0.02);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all v.$transition-base;
+
+    &:hover {
+      border-color: v.$gold;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 8px 24px color.change(v.$gold, $alpha: 0.15);
+      transform: translateY(-2px);
+    }
+
+    svg {
+      width: 15px;
+      height: 15px;
+      color: v.$gold;
+    }
+
+    span {
+      font-family: v.$font-body;
+      font-size: 11px;
+      font-weight: v.$fw-semibold;
+      color: v.$navy;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+  }
+
+  // ── Botón CTA para el Catálogo Separado ──
+  &__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 30px;
+    background: linear-gradient(135deg, v.$gold, v.$gold-light);
+    color: v.$white;
+    font-family: v.$font-body;
+    font-size: 11px;
+    font-weight: v.$fw-semibold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: v.$radius-full;
+    cursor: pointer;
+    transition: all v.$transition-base;
+    box-shadow: 0 4px 14px color.change(v.$gold, $alpha: 0.35);
+    text-decoration: none;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px color.change(v.$gold, $alpha: 0.5);
+      background: linear-gradient(135deg, v.$gold-light, v.$gold);
+    }
+  }
+}
+
+// ── Keyframe de Fondo Líquido Compartido ──
+@keyframes liquidShiftAbout {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

@@ -1,0 +1,564 @@
+@use 'sass:color';
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // ── Configuración de Desborde para Sangrado Continuo ──
+  overflow: visible !important; // Permitimos que los iconos salgan libremente por los costados sin corte horizontal
+  z-index: 2;
+
+  background: transparent !important;
+
+  padding-top: clamp(6rem, 5rem + 3.5vw, 8.5rem);
+  padding-bottom: v.$space-lg;
+
+  // ── Gradientes y Luces de Ambiente ──
+  &__bgGradient {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 30%,
+        color.change(v.$gold, $alpha: 0.08) 0%,
+        transparent 55%),
+      radial-gradient(circle at 80% 70%,
+        color.change(v.$rose-coral, $alpha: 0.06) 0%,
+        transparent 55%);
+    filter: blur(50px);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  &__radialBlue {
+    position: absolute;
+    top: 10%;
+    right: 15%;
+    width: clamp(350px, 45vw, 750px);
+    height: clamp(350px, 45vw, 750px);
+    background: radial-gradient(circle,
+        color.change(#a8ceff, $alpha: 0.28) 0%,
+        transparent 70%);
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  // ── Contenedor de Formas (z-index bajo para ir al fondo) ──
+  &__shapes {
+    position: absolute;
+    inset: 0;
+    overflow: visible; // Permite a los hijos salir del marco del Hero hacia abajo
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  // ── Contenido Principal (z-index alto) ──
+  &__content {
+    position: relative;
+    z-index: 10;
+    @include m.container;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: v.$space-md;
+    padding-right: v.$space-md;
+  }
+
+  // ── Badge ──
+  // ── Cloud Badge (Estilo Nube Romántica y Puffy sin punto rojo) ──
+  &__cloudBadge {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 22px;
+
+    // Asymmetric border-radius to look puffy and organic like a cloud!
+    border-radius: 30px 30px 12px 30px;
+
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow:
+      0 8px 24px rgba(116, 74, 94, 0.04),
+      inset 0 2px 6px rgba(255, 255, 255, 0.6);
+    margin-bottom: v.$space-md;
+    transition: all 0.4s ease;
+
+    &:hover {
+      transform: translateY(-2px) scale(1.02);
+      background: rgba(255, 255, 255, 0.7);
+      border-color: rgba(207, 168, 139, 0.35);
+      box-shadow:
+        0 12px 30px rgba(116, 74, 94, 0.08),
+        inset 0 2px 8px rgba(255, 255, 255, 0.8);
+    }
+
+    @include m.respond-to(md) {
+      margin-bottom: v.$space-lg;
+    }
+
+    &-text {
+      font-family: v.$font-body;
+      font-size: 10px;
+      font-weight: v.$fw-semibold;
+      color: v.$navy;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.5));
+    }
+  }
+
+  // ── Título Principal ──
+  &__title {
+    font-family: v.$font-heading;
+    font-size: clamp(2.5rem, 6vw, v.$fs-hero);
+    font-weight: v.$fw-bold;
+    line-height: 1.08;
+    margin-bottom: v.$space-sm;
+    letter-spacing: -0.01em;
+
+    @include m.respond-to(md) {
+      margin-bottom: v.$space-md;
+      line-height: 1.05;
+    }
+  }
+
+  // ── Tagline ──
+  &__tagline {
+    font-family: v.$font-heading;
+    font-size: clamp(0.9rem, 2.2vw, 1.2rem);
+    font-style: italic;
+    font-weight: v.$fw-regular;
+    color: v.$gold-dark;
+    margin-bottom: v.$space-md;
+    letter-spacing: 0.05em;
+  }
+
+  // ── Descripción ──
+  &__description {
+    font-family: v.$font-body;
+    font-size: clamp(13px, 2vw, 15px);
+    color: v.$color-text-muted;
+    line-height: 1.6;
+    max-width: 580px;
+    margin: 0 auto v.$space-xl;
+    font-weight: v.$fw-regular;
+    letter-spacing: 0.02em;
+
+    @include m.respond-to(md) {
+      line-height: 1.7;
+      margin-bottom: v.$space-2xl;
+    }
+  }
+
+  // ── Botones CTA ──
+  &__cta-group {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-md;
+    align-items: center;
+    width: 100%;
+    max-width: 290px;
+
+    @include m.respond-to(sm) {
+      flex-direction: row;
+      gap: v.$space-lg;
+      max-width: none;
+      width: auto;
+    }
+  }
+
+  &__cta-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: v.$space-sm;
+    padding: 14px v.$space-2xl;
+    background: linear-gradient(135deg, v.$gold, v.$gold-light);
+    color: v.$white;
+    font-family: v.$font-body;
+    font-size: 11px;
+    font-weight: v.$fw-semibold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: v.$radius-full;
+    cursor: pointer;
+    transition: all v.$transition-base;
+    box-shadow: 0 6px 20px color.change(v.$gold, $alpha: 0.35);
+    text-decoration: none;
+    width: 100%;
+
+    @include m.respond-to(sm) {
+      width: auto;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px color.change(v.$gold, $alpha: 0.48);
+      background: linear-gradient(135deg, v.$gold-light, v.$gold);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  // Botón Secundario Glass con Borde Oro Champagne
+  &__cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: v.$space-sm;
+    padding: 13px v.$space-2xl;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: v.$navy;
+    font-family: v.$font-body;
+    font-size: 11px;
+    font-weight: v.$fw-semibold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid color.change(v.$gold, $alpha: 0.35);
+    border-radius: v.$radius-full;
+    cursor: pointer;
+    transition: all v.$transition-base;
+    text-decoration: none;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(27, 42, 74, 0.02);
+
+    @include m.respond-to(sm) {
+      width: auto;
+    }
+
+    &:hover {
+      border-color: v.$gold;
+      background: rgba(255, 255, 255, 0.7);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(197, 165, 90, 0.15);
+    }
+  }
+}
+
+// ── DEFINICIÓN A NIVEL RAÍZ PARA EXPORTACIÓN PERFECTA DE CSS MODULES ──
+
+// 💎 Título Linea 1 (Alejandra) en un Azul Marino Satinado Ultra-Limpio y Profesional (Cero tosquedad)
+// 💎 Título Linea 1 (Alejandra) con Efecto Metal Líquido Azul Royal
+.hero__title-line1 {
+  display: block; // Hacemos que sea un bloque completo para darle protagonismo supremo
+  font-size: clamp(3.6rem, 10.5vw, 7.5rem) !important; // ¡Mucho más grande y espectacular!
+  font-weight: v.$fw-bold;
+  line-height: 1.05;
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+
+  // Efecto metal satinado bordó ciruela líquido de súper lujo
+  background: linear-gradient(135deg,
+      #351c27 0%,
+      #744a5e 25%,
+      #b07994 50%,
+      #744a5e 75%,
+      #351c27 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+
+  // Animación de brillo metálico sutil en bucle continuo
+  background-size: 200% auto !important;
+  animation: metallicShine 4s linear infinite !important;
+  filter: drop-shadow(0 2px 8px rgba(116, 74, 94, 0.08));
+}
+
+.hero__title-line2 {
+  display: block;
+  background: linear-gradient(135deg,
+      v.$gold-dark 0%,
+      v.$gold 50%,
+      v.$gold-light 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+// 💎 Flecha Bouncing Dorada (Chevron) - Totalmente visible, con grosor y animación
+// 💎 Icono de Menú Carta de Libro Abierto
+.hero__cta-menu-icon {
+  display: inline-block !important;
+  margin-left: 8px !important;
+  vertical-align: middle !important;
+  stroke: v.$gold-dark !important;
+  color: v.$gold-dark !important;
+  stroke-width: 2.2px !important;
+  width: 14px !important;
+  height: 14px !important;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+// Interacción al hacer hover en el botón secundario
+.hero__cta-secondary:hover {
+  .hero__cta-menu-icon {
+    transform: scale(1.18) rotate(-6deg);
+    color: v.$gold !important;
+  }
+}
+
+// 💎 Indicador de Scroll de Alta Gama Inline (Debajo de los botones del Hero)
+.hero__scroll-indicator-inline {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  pointer-events: none;
+  margin-top: v.$space-lg;
+  opacity: 0.9;
+  z-index: 10;
+  width: 100%;
+
+  @include m.respond-to(md) {
+    margin-top: v.$space-xl;
+  }
+}
+
+.hero__scroll-indicator-arrow {
+  width: 22px !important;
+  height: 22px !important;
+  stroke: v.$gold-light !important;
+  color: v.$gold-light !important;
+  stroke-width: 2.2px !important;
+  filter: drop-shadow(0 2px 8px rgba(197, 165, 90, 0.25));
+  animation: scrollArrowBounce 2s ease-in-out infinite;
+}
+
+// ── POSICIONAMIENTO RESPONSIVO DE LAS 8 FORMAS (Más chicas, alineadas más arriba, sin pisarse, Mobile-First) ──
+
+// 🚀 LADO IZQUIERDO (COMPLETAMENTE SEPARADAS DE ARRIBA A ABAJO)
+
+.shape1 {
+  // Torta (140px) - Superior Izquierda
+  position: absolute !important;
+  left: -2%;
+  top: 8%;
+  transform: scale(0.75);
+
+  @include m.respond-to(md) {
+    left: 2%;
+    top: 10%;
+    transform: scale(1);
+  }
+}
+
+.shape3 {
+  // Cupcake (120px) - BLEEDING DEEP INTO ABOUT SECTION! (Bajo Izquierda)
+  position: absolute !important;
+  display: none; // Oculta en móvil
+
+  @include m.respond-to(md) {
+    display: block;
+    left: 8%;
+    top: 74%; // Cruza suavemente la frontera hacia "Historia" sin bajar demasiado
+    transform: scale(1);
+  }
+}
+
+.shape5 {
+  // Porción 1 (100px) - Medio Izquierda
+  position: absolute !important;
+  left: -1%;
+  top: 42%;
+  transform: scale(0.8);
+
+  @include m.respond-to(md) {
+    left: 3%;
+    top: 40%;
+    transform: scale(1);
+  }
+}
+
+.shape7 {
+  // Macaron (90px) - Centro-Alto Izquierda
+  position: absolute !important;
+  display: none; // Oculta en móvil
+
+  @include m.respond-to(md) {
+    display: block;
+    left: 16%;
+    top: 6%;
+    transform: scale(1);
+  }
+}
+
+// 🚀 LADO DERECHO (COMPLETAMENTE SEPARADAS DE ARRIBA A ABAJO)
+
+.shape2 {
+  // Croissant/Empanada (130px) - Medio Derecha
+  position: absolute !important;
+  right: -2%;
+  top: 44%;
+  transform: scale(0.75);
+
+  @include m.respond-to(md) {
+    right: 3%;
+    top: 42%;
+    transform: scale(1);
+  }
+}
+
+.shape4 {
+  // Macaron (110px) - Superior Derecha
+  position: absolute !important;
+  right: -1%;
+  top: 6%;
+  transform: scale(0.8);
+
+  @include m.respond-to(md) {
+    right: 4%;
+    top: 6%;
+    transform: scale(1);
+  }
+}
+
+.shape6 {
+  // Torta 2 (110px) - BLEEDING DEEP INTO ABOUT SECTION! (Bajo Derecha)
+  position: absolute !important;
+  display: none; // Oculta en móvil
+
+  @include m.respond-to(md) {
+    display: block;
+    right: 8%;
+    top: 78%; // Cruza suavemente la frontera hacia "Historia" sin bajar demasiado
+    transform: scale(1);
+  }
+}
+
+.shape8 {
+  // Porción 2 (90px) - Centro-Medio Derecha
+  position: absolute !important;
+  display: none; // Oculta en móvil
+
+  @include m.respond-to(md) {
+    display: block;
+    right: 18%;
+    top: 24%;
+    transform: scale(1);
+  }
+}
+
+:global(.elegant-shape) {
+  pointer-events: none;
+  z-index: 1; // z-index bajo para que flote por detrás del contenido de About
+  opacity: 0.45 !important; // Menos opacidad para un fundido elegante con el fondo
+  transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+:global(.elegant-shape__mouse),
+:global(.elegant-shape__inner) {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+// ── Keyframes de Fondo Líquido y Rebote ──
+@keyframes liquidShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes scrollPulse {
+
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scaleY(0.9);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scaleY(1.25);
+  }
+}
+
+@keyframes chevronBounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+@keyframes scrollMouseDot {
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  80% {
+    transform: translate(-50%, 12px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes scrollArrowBounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+
+  50% {
+    transform: translateY(4px);
+    opacity: 0.95;
+    filter: drop-shadow(0 0 4px rgba(197, 165, 90, 0.5));
+  }
+}
+
+@keyframes metallicShine {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}

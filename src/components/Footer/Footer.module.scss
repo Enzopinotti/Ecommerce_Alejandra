@@ -1,0 +1,166 @@
+@use 'sass:color';
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.footer {
+  background: v.$navy-deep;
+  padding: v.$space-3xl 0 v.$space-xl;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color.change(v.$gold, $alpha: 0.3),
+      transparent
+    );
+  }
+
+  &__inner {
+    @include m.container;
+  }
+
+  &__top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: v.$space-xl;
+    padding-bottom: v.$space-2xl;
+    border-bottom: 1px solid color.change(v.$white, $alpha: 0.06);
+    text-align: center;
+  }
+
+  &__logo-name {
+    font-family: v.$font-heading;
+    font-size: v.$fs-2xl;
+    font-weight: v.$fw-semibold;
+    font-style: italic;
+    color: v.$white;
+    line-height: 1;
+  }
+
+  &__logo-sub {
+    font-family: v.$font-body;
+    font-size: v.$fs-xs;
+    color: color.change(v.$white, $alpha: 0.6);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-top: v.$space-xs;
+  }
+
+  &__tagline {
+    font-family: v.$font-heading;
+    font-size: v.$fs-md;
+    font-style: italic;
+    color: color.change(v.$white, $alpha: 0.95);
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: v.$space-lg;
+  }
+
+  &__link {
+    font-family: v.$font-body;
+    font-size: v.$fs-sm;
+    color: color.change(v.$white, $alpha: 0.75);
+    text-decoration: none;
+    transition: color v.$transition-fast;
+    cursor: pointer;
+
+    &:hover {
+      color: v.$gold-light;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: v.$space-md;
+    padding-top: v.$space-xl;
+
+    @include m.respond-to(md) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+
+    @include m.respond-to(md) {
+      align-items: flex-start;
+    }
+  }
+
+  &__copyright {
+    font-family: v.$font-body;
+    font-size: v.$fs-xs;
+    color: color.change(v.$white, $alpha: 0.5);
+    line-height: 1.4;
+  }
+
+  &__developer {
+    font-family: v.$font-body;
+    font-size: v.$fs-xs;
+    color: color.change(v.$white, $alpha: 0.55);
+    line-height: 1.4;
+  }
+
+  &__developer-link {
+    color: v.$gold-light;
+    text-decoration: none;
+    font-weight: v.$fw-semibold;
+    border-bottom: 1px dashed color.change(v.$gold-light, $alpha: 0.4);
+    padding-bottom: 1px;
+    transition: all v.$transition-base;
+    cursor: pointer;
+
+    &:hover {
+      color: v.$white;
+      border-bottom-color: v.$white;
+      text-shadow: 0 0 8px color.change(v.$gold-light, $alpha: 0.45);
+    }
+  }
+
+  &__socials {
+    display: flex;
+    gap: v.$space-md;
+  }
+
+  &__social {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: color.change(v.$white, $alpha: 0.08);
+    border: 1px solid color.change(v.$white, $alpha: 0.12);
+    @include m.flex-center;
+    color: color.change(v.$white, $alpha: 0.85);
+    transition: all v.$transition-base;
+    text-decoration: none;
+
+    &:hover {
+      background: color.change(v.$gold, $alpha: 0.2);
+      border-color: v.$gold-light;
+      color: v.$white;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

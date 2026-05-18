@@ -1,0 +1,288 @@
+@use 'sass:color';
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.gallery {
+  position: relative;
+  background: transparent !important;
+  overflow: hidden;
+
+  &__sticky {
+    position: relative;
+    padding: 4rem 0;
+    
+    @include m.respond-to(md) {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0;
+      overflow: hidden;
+    }
+  }
+
+  &__inner {
+    @include m.container;
+    position: relative;
+    z-index: 10;
+  }
+
+  // ── Header Estilo Hero (Idéntico a Historia/Nosotros/Servicios) ──
+  &__header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: v.$space-xs;
+    margin-bottom: v.$space-xs;
+
+    &-subtitle {
+      display: inline-flex;
+      align-items: center;
+      gap: v.$space-xs;
+      font-family: v.$font-body;
+      font-size: 10px;
+      font-weight: v.$fw-semibold;
+      color: v.$rose-coral;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: v.$space-xs;
+
+      svg {
+        filter: drop-shadow(0 0 4px color.change(v.$rose-coral, $alpha: 0.3));
+      }
+    }
+
+    &-title {
+      font-family: v.$font-heading;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: v.$fw-bold;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      text-align: center;
+      background: linear-gradient(
+        135deg,
+        v.$navy-deep 0%,
+        v.$navy 50%,
+        v.$navy-deep 100%
+      ) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      color: transparent !important;
+      transition: all 0.4s ease;
+    }
+
+    &-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: v.$space-md;
+      width: 100%;
+      margin-top: v.$space-sm;
+      margin-bottom: v.$space-md;
+    }
+
+    &-line {
+      width: 45px;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        color.change(v.$gold, $alpha: 0.4),
+        transparent
+      );
+      
+      &:first-child {
+        background: linear-gradient(to left, color.change(v.$gold, $alpha: 0.4), transparent);
+      }
+      &:last-child {
+        background: linear-gradient(to right, color.change(v.$gold, $alpha: 0.4), transparent);
+      }
+    }
+
+    &-heart {
+      color: v.$gold;
+      opacity: 0.8;
+    }
+  }
+
+  // ── Bloque de Cuerpo Editorial ──
+  &__text-block {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-md;
+    width: 100%;
+    margin-top: v.$space-md;
+    margin-bottom: v.$space-xl;
+    align-items: center;
+    text-align: center;
+  }
+
+  &__text-title {
+    font-family: v.$font-heading;
+    font-size: clamp(16px, 2.5vw, 20px);
+    font-weight: v.$fw-regular;
+    color: v.$gold-dark;
+    line-height: 1.45;
+    margin-bottom: v.$space-xs;
+    letter-spacing: 0.02em;
+    max-width: 700px;
+  }
+
+  &__text-highlight {
+    font-weight: v.$fw-semibold;
+    color: v.$navy;
+    font-style: normal;
+    border-bottom: 1px solid color.change(v.$gold, $alpha: 0.35);
+    padding-bottom: 2px;
+  }
+
+  // ── Viewport Horizontal ──
+  &__viewport {
+    width: 100%;
+    position: relative;
+    overflow-x: auto;
+    padding: 0 v.$space-lg;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; // Ocultar scrollbar en Firefox
+
+    &::-webkit-scrollbar {
+      display: none; // Ocultar scrollbar en Chrome/Safari
+    }
+
+    @include m.respond-to(md) {
+      width: 100vw;
+      overflow: hidden;
+      padding: 0;
+    }
+  }
+
+  &__container {
+    display: flex;
+    gap: v.$space-lg;
+    padding: 0;
+    width: max-content;
+
+    @include m.respond-to(md) {
+      gap: v.$space-2xl;
+      padding: 0 12vw; // Margen inicial amplio y elegante
+    }
+  }
+
+  // ── Tarjeta de Galería de Lujo (Diseño Editorial - Sin fondo ni bordes) ──
+  &__item {
+    flex: 0 0 280px;
+    width: 280px;
+    height: 360px;
+    border-radius: v.$radius-lg;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    transition: all v.$transition-base;
+
+    @include m.respond-to(md) {
+      flex: 0 0 350px;
+      width: 350px;
+      height: 460px;
+    }
+
+    &:hover {
+      transform: translateY(-8px);
+
+      .gallery__image {
+        transform: scale(1.08);
+      }
+
+      .gallery__overlay {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__imageWrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  // ── Overlay Elegante Degradado ──
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(76, 44, 59, 0.9) 0%,
+      rgba(76, 44, 59, 0.45) 60%,
+      transparent 100%
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: v.$space-xl;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  &__item-label {
+    font-family: v.$font-heading;
+    font-size: v.$fs-md;
+    font-weight: v.$fw-semibold;
+    color: v.$white;
+    margin-bottom: v.$space-xs;
+    transform: translateY(15px);
+    transition: transform 0.4s ease;
+
+    .gallery__item:hover & {
+      transform: translateY(0);
+    }
+  }
+
+  &__item-sub {
+    font-family: v.$font-body;
+    font-size: 10px;
+    font-weight: v.$fw-semibold;
+    color: v.$gold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transform: translateY(15px);
+    transition: transform 0.4s ease 0.05s;
+
+    .gallery__item:hover & {
+      transform: translateY(0);
+    }
+  }
+
+  // ── Indicador de Deslizamiento Lateral (Mobile/Desktop) ──
+  &__scrollHint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: v.$space-xs;
+    margin-top: v.$space-xl;
+    font-family: v.$font-body;
+    font-size: 10px;
+    font-weight: v.$fw-semibold;
+    color: v.$gold-dark;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.7;
+
+    @include m.respond-to(md) {
+      margin-top: v.$space-2xl;
+    }
+  }
+}

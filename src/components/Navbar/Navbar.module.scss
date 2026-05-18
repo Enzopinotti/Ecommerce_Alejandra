@@ -1,0 +1,325 @@
+@use 'sass:color';
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.navbar {
+  position: fixed;
+  z-index: v.$z-nav;
+  
+  // ── Margen Flotante Mobile-First (Espacios arriba, izquierda y derecha) ──
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  width: auto; // Se expande automáticamente restando los márgenes
+  transition: all v.$transition-smooth;
+
+  // ── Margen Flotante Desktop (Centrado elegante con espacio a los lados) ──
+  @include m.respond-to(md) {
+    top: 24px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: calc(100% - 48px); // 24px de espacio a cada lado
+    max-width: 1140px; // Ancho máximo de cápsula premium
+  }
+
+  // ── Contenedor Flotante Estilo Glassmorphism Fino (Rosa & Soft) ──
+  &__inner {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.6) 100%);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    border: 1px solid rgba(232, 160, 156, 0.22); // Borde rosa cristalino de alta costura
+    border-radius: v.$radius-full;
+    box-shadow: 
+      0 8px 32px rgba(27, 42, 74, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    transition: all v.$transition-smooth;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @include m.respond-to(md) {
+      padding: 10px v.$space-xl;
+      border-color: rgba(232, 160, 156, 0.28);
+    }
+  }
+
+  // ── Modificador al hacer Scroll (Efecto Acoplamiento / Docking) ──
+  &--scrolled {
+    top: 8px; // Se acopla ligeramente hacia arriba en móvil
+
+    @include m.respond-to(md) {
+      top: 16px; // Se acopla ligeramente hacia arriba en desktop
+      transform: translateX(-50%);
+    }
+
+    .navbar__inner {
+      background: rgba(255, 255, 255, 0.88);
+      border-color: rgba(232, 160, 156, 0.32);
+      box-shadow: 
+        0 12px 36px rgba(27, 42, 74, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      padding: 6px 16px;
+
+      @include m.respond-to(md) {
+        padding: 8px v.$space-xl;
+      }
+    }
+  }
+
+  // ── Logo (Elegancia Serif Marfil/Marino) ──
+  &__logo {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    gap: 1px;
+
+    &-name {
+      font-family: v.$font-heading;
+      font-size: 18px;
+      font-weight: v.$fw-semibold;
+      color: v.$navy;
+      line-height: 1.05;
+      letter-spacing: 0.01em;
+      transition: color v.$transition-fast;
+
+      @include m.respond-to(md) {
+        font-size: 22px;
+      }
+    }
+
+    &-sub {
+      font-family: v.$font-body;
+      font-size: 7.5px;
+      color: v.$gold-dark;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: v.$fw-semibold;
+      line-height: 1;
+
+      @include m.respond-to(md) {
+        font-size: 9px;
+        letter-spacing: 0.22em;
+      }
+    }
+
+    &:hover {
+      .navbar__logo-name {
+        color: v.$gold;
+      }
+    }
+  }
+
+  // ── Enlaces de Escritorio (Desktop Links) ──
+  &__links {
+    display: none;
+    align-items: center;
+    gap: v.$space-lg;
+
+    @include m.respond-to(lg) {
+      display: flex;
+      gap: v.$space-xl;
+    }
+  }
+
+  &__link {
+    font-family: v.$font-body;
+    font-size: 11px;
+    font-weight: v.$fw-semibold;
+    color: color.change(v.$navy, $alpha: 0.8);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: all v.$transition-fast;
+    position: relative;
+    cursor: pointer;
+    padding: v.$space-xs 0;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      width: 0;
+      height: 1.5px;
+      background: v.$gold;
+      transition: all v.$transition-smooth;
+      transform: translateX(-50%);
+    }
+
+    &:hover {
+      color: v.$gold;
+
+      &::after {
+        width: 80%;
+      }
+    }
+
+    // ── Catálogo Link Diferenciado (Pill brillante elegante) ──
+    &--diferenciado {
+      background: rgba(207, 168, 139, 0.08); // Suave brillo champagne
+      border: 1px solid color.change(v.$gold, $alpha: 0.35); // Borde oro rosa
+      padding: 6px 14px !important;
+      border-radius: v.$radius-full;
+      color: v.$navy-deep !important;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 4px 10px rgba(207, 168, 139, 0.04);
+      margin-left: 4px;
+      
+      &::after {
+        display: none !important; // Sin línea inferior
+      }
+      
+      &:hover {
+        background: rgba(207, 168, 139, 0.15) !important;
+        border-color: v.$gold !important;
+        color: v.$gold-dark !important;
+        transform: translateY(-0.5px);
+      }
+      
+      &--active {
+        background: linear-gradient(135deg, v.$gold, v.$gold-light) !important;
+        color: v.$white !important;
+        border-color: transparent !important;
+        box-shadow: 0 4px 12px color.change(v.$gold, $alpha: 0.25) !important;
+      }
+    }
+  }
+
+  // ── Botón CTA "Cotizar" (Dorado de Brochure) ──
+  &__cta {
+    display: none;
+
+    @include m.respond-to(lg) {
+      display: inline-flex;
+      align-items: center;
+      gap: v.$space-sm;
+      padding: 10px v.$space-xl;
+      background: linear-gradient(135deg, v.$gold, v.$gold-light);
+      color: v.$white;
+      font-family: v.$font-body;
+      font-size: 11px;
+      font-weight: v.$fw-semibold;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: v.$radius-full;
+      cursor: pointer;
+      transition: all v.$transition-base;
+      box-shadow: 0 4px 14px color.change(v.$gold, $alpha: 0.35);
+      text-decoration: none;
+
+      &:hover {
+        transform: translateY(-1.5px);
+        box-shadow: 0 6px 18px color.change(v.$gold, $alpha: 0.5);
+        background: linear-gradient(135deg, v.$gold-light, v.$gold);
+      }
+
+      svg {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+
+  // ── Botón Toggle para Móvil (Hamburguesa Compacta) ──
+  &__toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    z-index: v.$z-nav + 2;
+
+    @include m.respond-to(lg) {
+      display: none;
+    }
+
+    span {
+      width: 20px;
+      height: 2px;
+      background: v.$navy;
+      border-radius: v.$radius-full;
+      transition: all v.$transition-smooth;
+    }
+
+    &--open {
+      span:nth-child(1) {
+        transform: rotate(45deg) translateY(4.5px) translateX(4px);
+      }
+      span:nth-child(2) {
+        opacity: 0;
+        transform: scale(0);
+      }
+      span:nth-child(3) {
+        transform: rotate(-45deg) translateY(-4.5px) translateX(4px);
+      }
+    }
+  }
+
+  // ── Menú Móvil Desplegable ──
+  &__mobile {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px) saturate(1.5);
+    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    z-index: v.$z-nav + 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: v.$space-lg;
+    transition: all v.$transition-smooth;
+
+    &--open {
+      display: flex;
+    }
+
+    @include m.respond-to(lg) {
+      display: none !important;
+    }
+  }
+
+  &__mobile-link {
+    font-family: v.$font-heading;
+    font-size: v.$fs-lg;
+    font-weight: v.$fw-semibold;
+    color: v.$navy;
+    text-decoration: none;
+    transition: color v.$transition-fast;
+    cursor: pointer;
+
+    &:hover {
+      color: v.$gold;
+    }
+  }
+
+  &__mobile-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: v.$space-sm;
+    padding: v.$space-sm v.$space-2xl;
+    background: linear-gradient(135deg, v.$gold, v.$gold-light);
+    color: v.$white;
+    font-family: v.$font-body;
+    font-size: 11px;
+    font-weight: v.$fw-semibold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: v.$radius-full;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: v.$space-sm;
+    box-shadow: 0 4px 15px color.change(v.$gold, $alpha: 0.35);
+  }
+}

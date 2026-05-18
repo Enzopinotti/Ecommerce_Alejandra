@@ -1,0 +1,322 @@
+@use 'sass:color';
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.contact {
+  position: relative;
+  padding-top: clamp(6rem, 5vw, 8rem);
+  padding-bottom: clamp(6rem, 8vw, 10rem);
+  background: transparent !important;
+  overflow: hidden;
+
+  &__inner {
+    @include m.container(v.$container-narrow);
+  }
+
+  // ── Header Estilo Hero (Idéntico a Historia/Nosotros/Servicios/Galería) ──
+  &__header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: v.$space-xs;
+    margin-bottom: v.$space-xs;
+
+    &-subtitle {
+      display: inline-flex;
+      align-items: center;
+      gap: v.$space-xs;
+      font-family: v.$font-body;
+      font-size: 10px;
+      font-weight: v.$fw-semibold;
+      color: v.$rose-coral;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: v.$space-xs;
+
+      svg {
+        filter: drop-shadow(0 0 4px color.change(v.$rose-coral, $alpha: 0.3));
+      }
+    }
+
+    &-title {
+      font-family: v.$font-heading;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: v.$fw-bold;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      text-align: center;
+      background: linear-gradient(
+        135deg,
+        v.$navy-deep 0%,
+        v.$navy 50%,
+        v.$navy-deep 100%
+      ) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      color: transparent !important;
+      transition: all 0.4s ease;
+    }
+
+    &-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: v.$space-md;
+      width: 100%;
+      margin-top: v.$space-sm;
+      margin-bottom: v.$space-md;
+    }
+
+    &-line {
+      width: 45px;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        color.change(v.$gold, $alpha: 0.4),
+        transparent
+      );
+      
+      &:first-child {
+        background: linear-gradient(to left, color.change(v.$gold, $alpha: 0.4), transparent);
+      }
+      &:last-child {
+        background: linear-gradient(to right, color.change(v.$gold, $alpha: 0.4), transparent);
+      }
+    }
+
+    &-heart {
+      color: v.$gold;
+      opacity: 0.8;
+    }
+  }
+
+  // ── Bloque de Cuerpo Editorial ──
+  &__text-block {
+    display: flex;
+    flex-direction: column;
+    gap: v.$space-md;
+    width: 100%;
+    margin-top: v.$space-md;
+    margin-bottom: v.$space-2xl;
+    align-items: center;
+    text-align: center;
+  }
+
+  &__text-title {
+    font-family: v.$font-heading;
+    font-size: clamp(16px, 2.5vw, 20px);
+    font-weight: v.$fw-regular;
+    color: v.$gold-dark;
+    line-height: 1.45;
+    margin-bottom: v.$space-xs;
+    letter-spacing: 0.02em;
+    max-width: 700px;
+  }
+
+  &__text-highlight {
+    font-weight: v.$fw-semibold;
+    color: v.$navy;
+    font-style: normal;
+    border-bottom: 1px solid color.change(v.$gold, $alpha: 0.35);
+    padding-bottom: 2px;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: v.$space-2xl;
+    align-items: stretch;
+
+    @include m.respond-to(md) {
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: v.$space-3xl;
+    }
+  }
+
+  // ── Info Side ────────────────────────────────
+  &__info {
+    @include m.flex-column;
+    gap: v.$space-xl;
+    justify-content: center;
+  }
+
+  &__info-text {
+    font-family: v.$font-body;
+    font-size: clamp(14px, 2vw, 16px);
+    color: v.$color-text-muted;
+    line-height: 1.6;
+    margin-bottom: 6px;
+    font-weight: v.$fw-regular;
+    letter-spacing: 0.02em;
+  }
+
+  &__channels {
+    @include m.flex-column;
+    gap: v.$space-md;
+  }
+
+  &__channel {
+    display: flex;
+    align-items: center;
+    gap: v.$space-md;
+    padding: v.$space-md v.$space-lg;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
+    border-radius: v.$radius-lg;
+    border: 1px solid color.change(v.$gold, $alpha: 0.2);
+    text-decoration: none;
+    transition: all v.$transition-base;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    &:hover {
+      border-color: color.change(v.$gold, $alpha: 0.5);
+      box-shadow: 0 10px 25px color.change(v.$navy, $alpha: 0.04);
+      transform: translateX(6px);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
+    }
+  }
+
+  &__channel-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: v.$radius-md;
+    @include m.flex-center;
+    border: 1px solid color.change(v.$gold, $alpha: 0.15);
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    &--whatsapp {
+      background: color.change(#25D366, $alpha: 0.08);
+      svg { color: #25D366; }
+    }
+
+    &--instagram {
+      background: color.change(#E4405F, $alpha: 0.08);
+      svg { color: #E4405F; }
+    }
+
+    &--phone {
+      background: color.change(v.$gold, $alpha: 0.08);
+      svg { color: v.$gold; }
+    }
+
+    &--email {
+      background: color.change(v.$navy, $alpha: 0.08);
+      svg { color: v.$navy; }
+    }
+  }
+
+  &__channel-info {
+    flex: 1;
+  }
+
+  &__channel-label {
+    font-family: v.$font-body;
+    font-size: 9px;
+    font-weight: v.$fw-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: v.$color-text-muted;
+    margin-bottom: 2px;
+  }
+
+  &__channel-value {
+    font-family: v.$font-body;
+    font-size: v.$fs-sm;
+    color: v.$navy-deep;
+    font-weight: v.$fw-semibold;
+  }
+
+  // ── Tarjeta de Marca Premium (Doble Fondo Velvet & Oro) ──
+  &__cta-card {
+    background: v.$navy-deep;
+    border-radius: v.$radius-xl;
+    padding: v.$space-2xl;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: v.$space-lg;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid color.change(v.$gold, $alpha: 0.25);
+    box-shadow: 0 15px 40px color.change(v.$navy-deep, $alpha: 0.25);
+
+    @include m.respond-to(md) {
+      padding: v.$space-3xl v.$space-2xl;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at 50% -20%,
+        color.change(v.$gold, $alpha: 0.15) 0%,
+        transparent 80%
+      );
+      pointer-events: none;
+    }
+  }
+
+  &__cta-title {
+    font-family: v.$font-heading;
+    font-size: v.$fs-xl;
+    color: v.$white;
+    font-weight: v.$fw-bold;
+    letter-spacing: 0.02em;
+    position: relative;
+  }
+
+  &__cta-tagline {
+    font-family: v.$font-heading;
+    font-size: v.$fs-base;
+    color: rgba(255, 255, 255, 0.85);
+    font-style: italic;
+    margin-top: -6px;
+    position: relative;
+  }
+
+  &__cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: v.$space-sm;
+    width: 100%;
+    max-width: 280px;
+    padding: 12px v.$space-xl;
+    background: linear-gradient(135deg, v.$gold, v.$gold-light);
+    color: v.$white;
+    font-family: v.$font-body;
+    font-size: 11px;
+    font-weight: v.$fw-semibold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: v.$radius-full;
+    cursor: pointer;
+    transition: all v.$transition-base;
+    box-shadow: 0 4px 14px color.change(v.$gold, $alpha: 0.35);
+    text-decoration: none;
+    position: relative;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px color.change(v.$gold, $alpha: 0.5);
+      background: linear-gradient(135deg, v.$gold-light, v.$gold);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
