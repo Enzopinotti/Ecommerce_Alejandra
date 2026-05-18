@@ -1,0 +1,76 @@
+@use 'sass:color';
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.priceOptions {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-xs;
+  width: 100%;
+
+  &__main {
+    font-family: v.$font-body;
+    font-size: v.$fs-lg;
+    font-weight: v.$fw-bold;
+    color: v.$color-secondary;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  &__suffix {
+    font-size: v.$fs-xs;
+    font-weight: v.$fw-medium;
+    color: v.$color-text-muted;
+    text-transform: lowercase;
+  }
+
+  &__discount {
+    font-family: v.$font-body;
+    font-size: v.$fs-xs;
+    font-weight: v.$fw-semibold;
+    color: v.$color-accent;
+    background: color.change(v.$color-accent, $alpha: 0.08);
+    padding: 2px v.$space-sm;
+    border-radius: v.$radius-sm;
+    display: inline-block;
+    align-self: flex-start;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: v.$space-xs;
+    border-top: 1px dashed color.change(v.$gold, $alpha: 0.15);
+    padding-top: v.$space-sm;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: v.$font-body;
+    font-size: v.$fs-xs;
+    color: v.$color-text-muted;
+    font-weight: v.$fw-medium;
+
+    &-val {
+      font-weight: v.$fw-semibold;
+      color: v.$color-secondary;
+    }
+  }
+
+  &__quote {
+    font-family: v.$font-body;
+    font-size: v.$fs-md;
+    font-weight: v.$fw-semibold;
+    color: v.$gold-dark;
+    background: color.change(v.$gold, $alpha: 0.08);
+    padding: v.$space-sm v.$space-md;
+    border-radius: v.$radius-md;
+    text-align: center;
+    border: 1px solid color.change(v.$gold, $alpha: 0.15);
+    letter-spacing: 0.02em;
+  }
+}

@@ -1,0 +1,53 @@
+@use 'sass:color';
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 400px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: v.$space-2xl;
+  gap: v.$space-lg;
+
+  &__icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: color.change(v.$rose-coral, $alpha: 0.1);
+    @include m.flex-center;
+    color: v.$rose-coral;
+    margin-bottom: v.$space-sm;
+
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &__title {
+    font-family: v.$font-heading;
+    font-size: v.$fs-xl;
+    color: v.$color-secondary;
+    margin-bottom: -10px;
+  }
+
+  &__message {
+    font-family: v.$font-body;
+    font-size: v.$fs-sm;
+    color: v.$color-text-muted;
+    line-height: 1.6;
+  }
+
+  &__button {
+    @include m.btn-outline;
+    padding: v.$space-sm v.$space-xl;
+    font-size: v.$fs-xs;
+    margin-top: v.$space-sm;
+  }
+}

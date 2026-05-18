@@ -1,0 +1,134 @@
+@use 'sass:color';
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.productCard {
+  background: v.$color-surface;
+  border-radius: v.$radius-xl;
+  border: 1px solid color.change(v.$gold, $alpha: 0.1);
+  overflow: hidden;
+  transition: all v.$transition-base;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: v.$shadow-md;
+    border-color: color.change(v.$gold, $alpha: 0.25);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:hover {
+      transform: none;
+    }
+  }
+
+  // ── Image Header ─────────────────────────────
+  &__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: color.change(v.$gold, $alpha: 0.05);
+    overflow: hidden;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform v.$transition-slow;
+
+    .productCard:hover & {
+      transform: scale(1.04);
+    }
+  }
+
+  &__badge {
+    position: absolute;
+    top: v.$space-sm;
+    left: v.$space-sm;
+    z-index: v.$z-base;
+    font-family: v.$font-body;
+    font-size: 10px;
+    font-weight: v.$fw-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px v.$space-sm;
+    border-radius: v.$radius-sm;
+    color: v.$white;
+    background: linear-gradient(135deg, v.$gold, v.$gold-light);
+    box-shadow: 0 2px 8px color.change(v.$gold, $alpha: 0.3);
+  }
+
+  // ── Info Content ─────────────────────────────
+  &__info {
+    padding: v.$space-lg;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: v.$space-sm;
+  }
+
+  &__title {
+    font-family: v.$font-heading;
+    font-size: v.$fs-md;
+    color: v.$color-secondary;
+    font-weight: v.$fw-semibold;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  &__description {
+    font-family: v.$font-body;
+    font-size: v.$fs-xs;
+    color: v.$color-text-muted;
+    line-height: 1.5;
+    margin: 0;
+    flex: 1;
+  }
+
+  &__pricing {
+    margin-top: auto;
+    padding-top: v.$space-sm;
+  }
+
+  // ── Actions Footer ───────────────────────────
+  &__footer {
+    padding: 0 v.$space-lg v.$space-lg;
+    margin-top: v.$space-sm;
+  }
+
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: v.$space-sm;
+    width: 100%;
+    padding: v.$space-sm v.$space-md;
+    background: linear-gradient(135deg, v.$gold, v.$gold-light);
+    color: v.$white;
+    font-family: v.$font-body;
+    font-size: v.$fs-xs;
+    font-weight: v.$fw-semibold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: v.$radius-full;
+    cursor: pointer;
+    transition: all v.$transition-base;
+    text-decoration: none;
+    box-shadow: 0 4px 12px color.change(v.$gold, $alpha: 0.2);
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px color.change(v.$gold, $alpha: 0.35);
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
