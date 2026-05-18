@@ -1,0 +1,427 @@
+@use 'sass:color';
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.categories {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: visible !important;
+  z-index: 2;
+  background: transparent !important;
+  padding-top: clamp(6.5rem, 5.5rem + 3.5vw, 8.5rem);
+  padding-bottom: v.$space-3xl;
+
+  // ── Gradientes y Luces de Ambiente al estilo Hero ──
+  &__bgGradient {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 10% 20%,
+        color.change(v.$gold, $alpha: 0.08) 0%,
+        transparent 50%),
+      radial-gradient(circle at 90% 80%,
+        color.change(v.$rose-coral, $alpha: 0.06) 0%,
+        transparent 50%);
+    filter: blur(55px);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  &__radialBlue {
+    position: absolute;
+    top: 15%;
+    right: 10%;
+    width: clamp(350px, 45vw, 750px);
+    height: clamp(350px, 45vw, 750px);
+    background: radial-gradient(circle,
+        color.change(#a8ceff, $alpha: 0.25) 0%,
+        transparent 70%);
+    filter: blur(95px);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  // ── Contenedor de Formas Flotantes ──
+  &__shapes {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  &__inner {
+    @include m.container;
+    position: relative;
+    z-index: 10;
+  }
+
+  &__header {
+    @include m.section-header;
+    margin-bottom: v.$space-2xl;
+  }
+
+  // ── Cloud Badge ──
+  &__cloudBadge {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 22px;
+    border-radius: 30px 30px 12px 30px;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow:
+      0 8px 24px rgba(116, 74, 94, 0.04),
+      inset 0 2px 6px rgba(255, 255, 255, 0.6);
+    margin-bottom: v.$space-md;
+    transition: all 0.4s ease;
+
+    &:hover {
+      transform: translateY(-2px) scale(1.02);
+      background: rgba(255, 255, 255, 0.7);
+      border-color: rgba(207, 168, 139, 0.35);
+      box-shadow:
+        0 12px 30px rgba(116, 74, 94, 0.08),
+        inset 0 2px 8px rgba(255, 255, 255, 0.8);
+    }
+
+    @include m.respond-to(md) {
+      margin-bottom: v.$space-lg;
+    }
+
+    &-text {
+      font-family: v.$font-body;
+      font-size: 10px;
+      font-weight: v.$fw-semibold;
+      color: v.$navy;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.5));
+    }
+  }
+
+  // ── Título Principal con Efecto Metal Líquido Bordó ──
+  &__title {
+    font-family: v.$font-heading;
+    font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+    font-weight: v.$fw-bold;
+    line-height: 1.1;
+    margin-bottom: v.$space-sm;
+    letter-spacing: -0.01em;
+
+    @include m.respond-to(md) {
+      margin-bottom: v.$space-md;
+    }
+  }
+
+  &__title-line1 {
+    display: block;
+    font-size: clamp(2.6rem, 8vw, 5.5rem) !important;
+    font-weight: v.$fw-bold;
+    line-height: 1.05;
+    margin-bottom: 2px;
+    letter-spacing: -0.02em;
+
+    // Gradiente bordó líquido satinado
+    background: linear-gradient(135deg,
+        #351c27 0%,
+        #744a5e 25%,
+        #b07994 50%,
+        #744a5e 75%,
+        #351c27 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+    background-size: 200% auto !important;
+    animation: metallicShine 4s linear infinite !important;
+    filter: drop-shadow(0 2px 6px rgba(116, 74, 94, 0.06));
+  }
+
+  &__title-line2 {
+    display: block;
+    font-size: clamp(1.4rem, 4vw, 2.5rem);
+    color: v.$navy-deep;
+    font-weight: v.$fw-regular;
+    font-family: v.$font-body;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  // ── Divisor Editorial con Líneas Horizontales ──
+  &__header-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: v.$space-md;
+    margin: v.$space-md auto v.$space-lg;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  &__header-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color.change(v.$gold, $alpha: 0.35),
+      transparent
+    );
+  }
+
+  &__header-heart {
+    color: v.$navy;
+    opacity: 0.85;
+    filter: drop-shadow(0 2px 4px rgba(116, 74, 94, 0.1));
+  }
+
+  &__description {
+    font-family: v.$font-body;
+    font-size: clamp(1rem, 2vw, v.$fs-base);
+    color: v.$charcoal-light;
+    line-height: 1.7;
+    max-width: 680px;
+    margin: 0 auto v.$space-lg;
+    font-weight: v.$fw-regular;
+  }
+
+  // ── Filter Tabs ──────────────────────────────
+  &__filters {
+    display: flex;
+    justify-content: center;
+    gap: v.$space-md;
+    margin-bottom: v.$space-xl;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 20;
+  }
+
+  &__filter-btn {
+    padding: v.$space-sm v.$space-xl;
+    font-family: v.$font-body;
+    font-size: 11px;
+    font-weight: v.$fw-semibold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.7);
+    color: v.$navy;
+    border: 1px solid color.change(v.$gold, $alpha: 0.35);
+    border-radius: v.$radius-full;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all v.$transition-base;
+    box-shadow: 0 4px 10px rgba(116, 74, 94, 0.02);
+
+    &:hover {
+      border-color: v.$gold;
+      color: v.$navy-deep;
+      background: rgba(255, 255, 255, 0.95);
+      transform: translateY(-1px);
+    }
+
+    &--active {
+      background: linear-gradient(135deg, v.$gold, v.$gold-light) !important;
+      color: v.$white !important;
+      border-color: transparent !important;
+      box-shadow: 0 6px 18px color.change(v.$gold, $alpha: 0.3) !important;
+
+      &:hover {
+        color: v.$white !important;
+        transform: none;
+      }
+    }
+  }
+
+  // ── Pagination ──────────────────────────────
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: v.$space-sm;
+    margin-top: v.$space-3xl;
+    width: 100%;
+    position: relative;
+    z-index: 20;
+  }
+
+  &__page-btn {
+    padding: 8px 18px;
+    font-family: v.$font-body;
+    font-size: 10px;
+    font-weight: v.$fw-semibold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.75);
+    color: v.$navy;
+    border: 1px solid color.change(v.$gold, $alpha: 0.35);
+    border-radius: v.$radius-full;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all v.$transition-base;
+    box-shadow: 0 4px 12px rgba(116, 74, 94, 0.02);
+
+    &:hover:not(&--disabled) {
+      background: v.$cream-warm;
+      border-color: v.$gold;
+      color: v.$navy-deep;
+      transform: translateY(-1px);
+    }
+
+    &--active {
+      background: linear-gradient(135deg, v.$gold, v.$gold-light) !important;
+      color: v.$white !important;
+      border-color: transparent !important;
+      box-shadow: 0 4px 12px color.change(v.$gold, $alpha: 0.3) !important;
+      pointer-events: none;
+    }
+
+    &--disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+}
+
+// 🚀 LADO IZQUIERDO DE VECTORES
+.shape1 {
+  position: absolute !important;
+  left: -2%;
+  top: 8%;
+  transform: scale(0.75);
+
+  @include m.respond-to(md) {
+    left: 2%;
+    top: 10%;
+    transform: scale(1);
+  }
+}
+
+.shape3 {
+  position: absolute !important;
+  display: none;
+
+  @include m.respond-to(md) {
+    display: block;
+    left: 8%;
+    top: 74%;
+    transform: scale(1);
+  }
+}
+
+.shape5 {
+  position: absolute !important;
+  left: -1%;
+  top: 42%;
+  transform: scale(0.8);
+
+  @include m.respond-to(md) {
+    left: 3%;
+    top: 40%;
+    transform: scale(1);
+  }
+}
+
+.shape7 {
+  position: absolute !important;
+  display: none;
+
+  @include m.respond-to(md) {
+    display: block;
+    left: 16%;
+    top: 6%;
+    transform: scale(1);
+  }
+}
+
+// 🚀 LADO DERECHO DE VECTORES
+.shape2 {
+  position: absolute !important;
+  right: -2%;
+  top: 44%;
+  transform: scale(0.75);
+
+  @include m.respond-to(md) {
+    right: 3%;
+    top: 42%;
+    transform: scale(1);
+  }
+}
+
+.shape4 {
+  position: absolute !important;
+  right: -1%;
+  top: 6%;
+  transform: scale(0.8);
+
+  @include m.respond-to(md) {
+    right: 4%;
+    top: 6%;
+    transform: scale(1);
+  }
+}
+
+.shape6 {
+  position: absolute !important;
+  display: none;
+
+  @include m.respond-to(md) {
+    display: block;
+    right: 8%;
+    top: 78%;
+    transform: scale(1);
+  }
+}
+
+.shape8 {
+  position: absolute !important;
+  display: none;
+
+  @include m.respond-to(md) {
+    display: block;
+    right: 18%;
+    top: 24%;
+    transform: scale(1);
+  }
+}
+
+:global(.elegant-shape) {
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.45 !important;
+  transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+:global(.elegant-shape__mouse),
+:global(.elegant-shape__inner) {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+@keyframes metallicShine {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
