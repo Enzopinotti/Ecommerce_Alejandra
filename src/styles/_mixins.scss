@@ -1,0 +1,274 @@
+// ============================================
+// ALEJANDRA CAKES & EVENTS — Mixins
+// Using @use instead of @import, no darken/lighten
+// ============================================
+
+@use 'sass:color';
+@use 'sass:math';
+@use 'variables' as v;
+
+// ── Media Queries ─────────────────────────────
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == xs   { @media (min-width: v.$bp-xs)  { @content; } }
+  @if $breakpoint == sm   { @media (min-width: v.$bp-sm)  { @content; } }
+  @if $breakpoint == md   { @media (min-width: v.$bp-md)  { @content; } }
+  @if $breakpoint == lg   { @media (min-width: v.$bp-lg)  { @content; } }
+  @if $breakpoint == xl   { @media (min-width: v.$bp-xl)  { @content; } }
+  @if $breakpoint == 2xl  { @media (min-width: v.$bp-2xl) { @content; } }
+}
+
+@mixin respond-below($breakpoint) {
+  @if $breakpoint == sm   { @media (max-width: (v.$bp-sm - 1px))  { @content; } }
+  @if $breakpoint == md   { @media (max-width: (v.$bp-md - 1px))  { @content; } }
+  @if $breakpoint == lg   { @media (max-width: (v.$bp-lg - 1px))  { @content; } }
+  @if $breakpoint == xl   { @media (max-width: (v.$bp-xl - 1px))  { @content; } }
+}
+
+// ── Layout ────────────────────────────────────
+@mixin container($max-width: v.$container-max) {
+  width: 100%;
+  max-width: $max-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: v.$space-lg;
+  padding-right: v.$space-lg;
+
+  @include respond-to(md) {
+    padding-left: v.$space-xl;
+    padding-right: v.$space-xl;
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// ── Typography ────────────────────────────────
+@mixin heading($size: v.$fs-2xl) {
+  font-family: v.$font-heading;
+  font-size: $size;
+  font-weight: v.$fw-semibold;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: v.$color-secondary;
+}
+
+@mixin body-text($size: v.$fs-base) {
+  font-family: v.$font-body;
+  font-size: $size;
+  font-weight: v.$fw-regular;
+  line-height: 1.6;
+  color: v.$color-text;
+}
+
+@mixin text-gradient($from: v.$gold-light, $to: v.$gold-dark) {
+  background: linear-gradient(135deg, $from, $to);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+// ── Buttons ───────────────────────────────────
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-sm;
+  font-family: v.$font-body;
+  font-size: v.$fs-sm;
+  font-weight: v.$fw-semibold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  border-radius: v.$radius-full;
+  padding: v.$space-md v.$space-2xl;
+  cursor: pointer;
+  transition: all v.$transition-base;
+  position: relative;
+  overflow: hidden;
+
+  &:focus-visible {
+    outline: 2px solid v.$color-primary;
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+@mixin btn-primary {
+  @include btn-base;
+  background: linear-gradient(135deg, v.$gold, v.$gold-light);
+  color: v.$white;
+  box-shadow: v.$shadow-gold;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px color.change(v.$gold, $alpha: 0.35);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@mixin btn-outline {
+  @include btn-base;
+  background: transparent;
+  color: v.$color-primary;
+  border: 2px solid v.$color-primary;
+
+  &:hover {
+    background: v.$color-primary;
+    color: v.$white;
+  }
+}
+
+@mixin btn-secondary {
+  @include btn-base;
+  background: v.$color-secondary;
+  color: v.$white;
+
+  &:hover {
+    background: v.$color-secondary-deep;
+    transform: translateY(-2px);
+    box-shadow: v.$shadow-lg;
+  }
+}
+
+// ── Cards ─────────────────────────────────────
+@mixin card($padding: v.$space-xl) {
+  background: v.$color-surface;
+  border-radius: v.$radius-xl;
+  padding: $padding;
+  box-shadow: v.$shadow-md;
+  transition: all v.$transition-base;
+  border: $border-light;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: v.$shadow-lg;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+$border-light: 1px solid color.change(v.$charcoal, $alpha: 0.08);
+
+// ── Section ───────────────────────────────────
+@mixin section-padding {
+  padding-top: v.$space-section;
+  padding-bottom: v.$space-section;
+}
+
+@mixin section-header {
+  text-align: center;
+  margin-bottom: v.$space-3xl;
+
+  .section-subtitle {
+    font-family: v.$font-body;
+    font-size: v.$fs-sm;
+    font-weight: v.$fw-semibold;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: v.$color-primary;
+    margin-bottom: v.$space-md;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: v.$space-sm;
+  }
+
+  .section-title {
+    @include heading(v.$fs-2xl);
+    margin-bottom: v.$space-md;
+  }
+
+  .section-description {
+    @include body-text(v.$fs-md);
+    color: v.$color-text-muted;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .section-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: v.$space-md;
+    margin-top: v.$space-lg;
+
+    &::before,
+    &::after {
+      content: '';
+      width: 60px;
+      height: 1px;
+      background: v.$color-primary;
+    }
+
+    svg {
+      color: v.$color-primary;
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+// ── Overlay Gradient ──────────────────────────
+@mixin overlay-gradient($direction: to bottom, $color: v.$navy-deep) {
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient($direction, 
+      color.change($color, $alpha: 0.7),
+      color.change($color, $alpha: 0.3)
+    );
+    pointer-events: none;
+  }
+}
+
+// ── Decorative ────────────────────────────────
+@mixin gold-line($width: 60px) {
+  &::before {
+    content: '';
+    display: block;
+    width: $width;
+    height: 2px;
+    background: linear-gradient(90deg, v.$gold, v.$gold-light);
+    margin: v.$space-md auto;
+  }
+}
+
+// ── Scrollbar ─────────────────────────────────
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: color.change(v.$cream, $alpha: 0.5);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: color.change(v.$gold, $alpha: 0.3);
+    border-radius: v.$radius-full;
+  }
+}

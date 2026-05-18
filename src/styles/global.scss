@@ -1,0 +1,150 @@
+// ============================================
+// ALEJANDRA CAKES & EVENTS — Global Styles
+// ============================================
+
+@use 'sass:color';
+@use 'variables' as v;
+@use 'mixins' as m;
+@use 'animations';
+
+// ── Reset & Base ──────────────────────────────
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: v.$font-body;
+  font-size: v.$fs-base;
+  font-weight: v.$fw-regular;
+  line-height: 1.6;
+  color: v.$color-text;
+  background-color: v.$color-bg;
+  overflow-x: hidden;
+
+  @include m.custom-scrollbar;
+}
+
+// ── Typography Base ───────────────────────────
+h1, h2, h3, h4, h5, h6 {
+  font-family: v.$font-heading;
+  font-weight: v.$fw-semibold;
+  line-height: 1.2;
+  color: v.$color-secondary;
+}
+
+h1 { font-size: v.$fs-3xl; }
+h2 { font-size: v.$fs-2xl; }
+h3 { font-size: v.$fs-xl; }
+h4 { font-size: v.$fs-lg; }
+
+p {
+  margin-bottom: v.$space-md;
+  color: v.$color-text;
+}
+
+a {
+  color: v.$color-primary;
+  text-decoration: none;
+  transition: color v.$transition-fast;
+  cursor: pointer;
+
+  &:hover {
+    color: v.$color-primary-dark;
+  }
+
+  &:focus-visible {
+    outline: 2px solid v.$color-primary;
+    outline-offset: 2px;
+    border-radius: v.$radius-sm;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+// ── Selection ─────────────────────────────────
+::selection {
+  background: color.change(v.$gold, $alpha: 0.3);
+  color: v.$color-secondary;
+}
+
+// ── Utility Classes ───────────────────────────
+.container {
+  @include m.container;
+}
+
+.container-narrow {
+  @include m.container(v.$container-narrow);
+}
+
+.text-center { text-align: center; }
+.text-gold   { color: v.$color-primary; }
+.text-navy   { color: v.$color-secondary; }
+.text-muted  { color: v.$color-text-muted; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// ── Shared Background Wrapper (Seamless continuous liquid background) ──
+.shared-background-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden; // Previene scrollbars y recortes no deseados en la página
+  z-index: 1;
+
+  background: linear-gradient(
+    135deg, 
+    v.$cream-warm 0%, 
+    v.$cream 25%, 
+    #e1effe 50%, 
+    #fae8e6 75%, 
+    v.$cream-warm 100%
+  );
+  background-size: 300% 300%;
+  animation: liquidShiftWrapper 24s ease infinite;
+}
+
+@keyframes liquidShiftWrapper {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+

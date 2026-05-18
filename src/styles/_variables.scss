@@ -1,0 +1,113 @@
+// ============================================
+// ALEJANDRA CAKES & EVENTS — Design Tokens
+// Paleta extraída del brochure: dorado, crema,
+// navy oscuro, rosa coral, blanco cálido
+// ============================================
+
+@use 'sass:color';
+@use 'sass:math';
+
+// ── Brand Colors (Inspirada en la paleta romántica, fina y cálida de Hannita & Cakes) ──
+$gold:            #cfa88b; // Champagne Rose-Gold metálico
+$gold-light:      #dec0aa; // Rose-Gold luminoso
+$gold-dark:       #a67c5e; // Bronce profundo
+$navy:            #744a5e; // Borgoña Rosado / Dusty Burgundy Muted
+$navy-deep:       #4c2c3b; // Ciruela Profundo / Deep Burgundy Satin
+$cream:           #faf6f3; // Warm Linen Cream / Crema Lino Cálido
+$cream-warm:      #f3eae4; // Warm Sand / Arena Cálida
+$white:           #FFFFFF; // Blanco Puro
+$rose-coral:      #cf2b70; // Rosa Bougainvillea Intenso
+$rose-soft:       #e28a97; // Rosa Dusty Pastel / Coral Soft
+$charcoal:        #3d2315; // Espresso Muted Brown / Letras Chocolate
+$charcoal-light:  #796053; // Chocolate Muted Muelle
+
+// ── Semantic Tokens ───────────────────────────
+$color-primary:       $gold;
+$color-primary-light: $gold-light;
+$color-primary-dark:  $gold-dark;
+$color-secondary:     $navy;
+$color-secondary-deep:$navy-deep;
+$color-accent:        $rose-coral;
+$color-accent-soft:   $rose-soft;
+$color-bg:            $cream;
+$color-bg-warm:       $cream-warm;
+$color-surface:       $white;
+$color-text:          $charcoal;
+$color-text-muted:    $charcoal-light;
+
+// ── Typography ────────────────────────────────
+$font-heading: 'Cormorant', Georgia, 'Times New Roman', serif;
+$font-body:    'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+$fw-light:     300;
+$fw-regular:   400;
+$fw-medium:    500;
+$fw-semibold:  600;
+$fw-bold:      700;
+
+// ── Type Scale (fluid) ────────────────────────
+$fs-xs:   clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
+$fs-sm:   clamp(0.8rem, 0.75rem + 0.3vw, 0.9rem);
+$fs-base: clamp(0.9rem, 0.85rem + 0.3vw, 1rem);
+$fs-md:   clamp(1rem, 0.9rem + 0.5vw, 1.15rem);
+$fs-lg:   clamp(1.15rem, 1rem + 0.75vw, 1.5rem);
+$fs-xl:   clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+$fs-2xl:  clamp(2rem, 1.5rem + 2.5vw, 3.25rem);
+$fs-3xl:  clamp(2.5rem, 1.8rem + 3.5vw, 4.5rem);
+$fs-hero: clamp(3rem, 2rem + 5vw, 6rem);
+
+// ── Spacing ───────────────────────────────────
+$space-xs:  0.25rem;
+$space-sm:  0.5rem;
+$space-md:  1rem;
+$space-lg:  1.5rem;
+$space-xl:  2rem;
+$space-2xl: 3rem;
+$space-3xl: 4rem;
+$space-4xl: 6rem;
+$space-section: clamp(4rem, 3rem + 5vw, 8rem);
+
+// ── Borders & Radius ─────────────────────────
+$radius-sm:   4px;
+$radius-md:   8px;
+$radius-lg:   12px;
+$radius-xl:   16px;
+$radius-2xl:  24px;
+$radius-full: 9999px;
+
+$border-thin:  1px solid color.change($gold, $alpha: 0.2);
+$border-light: 1px solid color.change($charcoal, $alpha: 0.08);
+$border-gold:  2px solid $gold;
+
+// ── Shadows ───────────────────────────────────
+$shadow-sm:   0 1px 3px color.change($navy, $alpha: 0.06);
+$shadow-md:   0 4px 12px color.change($navy, $alpha: 0.08);
+$shadow-lg:   0 8px 32px color.change($navy, $alpha: 0.1);
+$shadow-xl:   0 16px 48px color.change($navy, $alpha: 0.12);
+$shadow-gold: 0 4px 20px color.change($gold, $alpha: 0.25);
+
+// ── Transitions ───────────────────────────────
+$transition-fast:   150ms ease;
+$transition-base:   250ms ease;
+$transition-smooth: 400ms cubic-bezier(0.23, 0.86, 0.39, 0.96);
+$transition-slow:   600ms cubic-bezier(0.23, 0.86, 0.39, 0.96);
+
+// ── Breakpoints ───────────────────────────────
+$bp-xs:  375px;
+$bp-sm:  576px;
+$bp-md:  768px;
+$bp-lg:  1024px;
+$bp-xl:  1280px;
+$bp-2xl: 1440px;
+
+// ── Z-index scale ─────────────────────────────
+$z-base:    1;
+$z-above:   10;
+$z-nav:     100;
+$z-modal:   1000;
+$z-overlay: 9999;
+
+// ── Container ─────────────────────────────────
+$container-max:    1280px;
+$container-narrow: 960px;
+$container-wide:   1440px;
